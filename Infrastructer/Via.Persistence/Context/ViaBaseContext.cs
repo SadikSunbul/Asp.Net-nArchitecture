@@ -16,7 +16,7 @@ public class ViaBaseContext:DbContext
     public ViaBaseContext(DbContextOptions opt,IConfiguration configuration) : base(opt)
     {
         Configuration = configuration;
-        Database.EnsureCreated();
+        
     }
 
     #region DbSet<> Properties
