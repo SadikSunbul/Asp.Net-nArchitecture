@@ -15,18 +15,26 @@ namespace Via.Persistence;
 
 public static class PersistenceServicesRegisretions
 {
-    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services,
+        IConfiguration configuration)
     {
         //Veritabanı bağlantıları
 
         //services.AddDbContext<ViaBaseContext>(cof => cof.UseInMemoryDatabase("ViaInmemoryDatabase"));
-        services.AddDbContext<ViaBaseContext>(cof => cof.UseSqlServer(configuration.GetConnectionString("mssqlSadıkDocker")));
+        services.AddDbContext<ViaBaseContext>(cof =>
+            cof.UseSqlServer(configuration.GetConnectionString("mssqlSadıkDocker")));
         //services.AddDbContext<ViaBaseContext>(cof=>cof.UseSqlServer(configuration.GetConnectionString("mssqlViaSunucu")));
-
 
 
         //RepositroyIoc Kaydı
         services.AddScoped<IDenemeRepository, DenemeRepositroy>();
+
+        services.AddScoped<IEmailAuthenticatorRepository, EmailAuthenticatorRepository>();
+        services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+        services.AddScoped<IOtpAuthenticatorRepository, OtpAuthenticatorRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
 
         return services;
